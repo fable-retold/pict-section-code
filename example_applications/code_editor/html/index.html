@@ -13,8 +13,8 @@
 
 			/* --- Header Bar --- */
 			.pict-example-header { display: flex; align-items: stretch; background: #264653; border-bottom: 3px solid #E76F51; }
-			.pict-example-badge { background: #E76F51; color: #fff; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.5rem; }
-			.pict-example-badge svg { width: 14px; height: 14px; fill: #fff; flex-shrink: 0; }
+			.pict-example-badge { background: #E76F51; color: var(--theme-color-background-panel, #fff); padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.5rem; }
+			.pict-example-badge svg { width: 14px; height: 14px; fill: var(--theme-color-background-panel, #fff); flex-shrink: 0; }
 			.pict-example-app-name { padding: 0.6rem 1rem; color: #FAEDCD; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; }
 			.pict-example-module { margin-left: auto; padding: 0.6rem 1rem; color: #D4A373; font-size: 0.75rem; display: flex; align-items: center; letter-spacing: 0.03em; }
 
@@ -33,11 +33,11 @@
 			.pict-example-actions .separator { width: 1px; height: 20px; background: #D4C4A8; margin: 0 4px; }
 
 			/* --- Code Editor Container --- */
-			#CodeEditorContainer { background: #fff; border: 1px solid #D4A373; border-top: 4px solid #E76F51; border-radius: 6px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(38,70,83,0.08); }
+			#CodeEditorContainer { background: var(--theme-color-background-panel, #fff); border: 1px solid #D4A373; border-top: 4px solid #E76F51; border-radius: 6px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(38,70,83,0.08); }
 
 			/* --- Code Output --- */
 			#CodeOutputWrap { margin-top: 1.5rem; display: none; }
-			#CodeOutput { padding: 1rem; background: #fff; border: 1px solid #D4A373; border-radius: 6px; font-family: 'SFMono-Regular', 'SF Mono', 'Menlo', 'Consolas', monospace; font-size: 0.8rem; white-space: pre-wrap; max-height: 200px; overflow: auto; box-shadow: 0 2px 8px rgba(38,70,83,0.08); }
+			#CodeOutput { padding: 1rem; background: var(--theme-color-background-panel, #fff); border: 1px solid #D4A373; border-radius: 6px; font-family: 'SFMono-Regular', 'SF Mono', 'Menlo', 'Consolas', monospace; font-size: 0.8rem; white-space: pre-wrap; max-height: 200px; overflow: auto; box-shadow: 0 2px 8px rgba(38,70,83,0.08); }
 		</style>
 		<script src="./codejar.js" type="text/javascript"></script>
 		<script src="./pict.min.js" type="text/javascript"></script>

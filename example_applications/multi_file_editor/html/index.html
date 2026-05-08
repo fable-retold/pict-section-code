@@ -13,8 +13,8 @@
 
 			/* --- Header Bar --- */
 			.pict-example-header { display: flex; align-items: stretch; background: #264653; border-bottom: 3px solid #E76F51; }
-			.pict-example-badge { background: #E76F51; color: #fff; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.5rem; }
-			.pict-example-badge svg { width: 14px; height: 14px; fill: #fff; flex-shrink: 0; }
+			.pict-example-badge { background: #E76F51; color: var(--theme-color-background-panel, #fff); padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.5rem; }
+			.pict-example-badge svg { width: 14px; height: 14px; fill: var(--theme-color-background-panel, #fff); flex-shrink: 0; }
 			.pict-example-app-name { padding: 0.6rem 1rem; color: #FAEDCD; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; }
 			.pict-example-module { margin-left: auto; padding: 0.6rem 1rem; color: #D4A373; font-size: 0.75rem; display: flex; align-items: center; letter-spacing: 0.03em; }
 
@@ -24,7 +24,7 @@
 			/* --- File Sidebar --- */
 			.file-sidebar { width: 220px; background: #264653; color: #FAEDCD; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
 			.file-sidebar-header { padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid rgba(250,237,205,0.15); display: flex; justify-content: space-between; align-items: center; }
-			.file-sidebar-header button { background: #E76F51; color: #fff; border: none; padding: 0.25rem 0.6rem; border-radius: 3px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
+			.file-sidebar-header button { background: #E76F51; color: var(--theme-color-background-panel, #fff); border: none; padding: 0.25rem 0.6rem; border-radius: 3px; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
 			.file-sidebar-header button:hover { background: #D4573E; }
 			.file-entry { padding: 0.55rem 1rem; cursor: pointer; font-size: 0.85rem; border-left: 3px solid transparent; transition: background 0.15s; display: flex; align-items: center; gap: 0.3rem; }
 			.file-entry:hover { background: rgba(250,237,205,0.08); }
@@ -38,13 +38,13 @@
 			.editor-main { flex: 1; padding: 1.25rem; overflow: auto; }
 			.editor-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
 			.editor-toolbar .current-file { font-weight: 600; font-size: 0.95rem; color: #264653; }
-			.editor-toolbar .language-badge { background: #E76F51; color: #fff; font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
+			.editor-toolbar .language-badge { background: #E76F51; color: var(--theme-color-background-panel, #fff); font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
 			.editor-toolbar .spacer { flex: 1; }
 			.editor-toolbar button { background: #264653; color: #FAEDCD; border: none; padding: 0.45rem 1rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
 			.editor-toolbar button:hover { background: #1A3340; }
 
 			/* --- Editor Container --- */
-			#EditorContainer { background: #fff; border: 1px solid #D4A373; border-top: 4px solid #E76F51; border-radius: 6px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(38,70,83,0.08); min-height: 400px; }
+			#EditorContainer { background: var(--theme-color-background-panel, #fff); border: 1px solid #D4A373; border-top: 4px solid #E76F51; border-radius: 6px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(38,70,83,0.08); min-height: 400px; }
 		</style>
 		<script src="./codejar.js" type="text/javascript"></script>
 		<script src="./pict.min.js" type="text/javascript"></script>
