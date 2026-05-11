@@ -111,16 +111,67 @@ module.exports = (
 	padding-left: 10px;
 	border-radius: 4px;
 }
-.pict-code-editor-wrap .pict-code-editor .keyword       { color: var(--theme-color-brand-primary,   #A626A4); }
-.pict-code-editor-wrap .pict-code-editor .string        { color: var(--theme-color-status-success,  #50A14F); }
-.pict-code-editor-wrap .pict-code-editor .number        { color: var(--theme-color-brand-accent,    #986801); }
-.pict-code-editor-wrap .pict-code-editor .comment       { color: var(--theme-color-text-muted,      #A0A1A7); font-style: italic; }
-.pict-code-editor-wrap .pict-code-editor .operator      { color: var(--theme-color-status-info,     #0184BC); }
-.pict-code-editor-wrap .pict-code-editor .punctuation   { color: var(--theme-color-text-secondary,  #383A42); }
-.pict-code-editor-wrap .pict-code-editor .function-name { color: var(--theme-color-brand-primary,   #4078F2); }
-.pict-code-editor-wrap .pict-code-editor .property      { color: var(--theme-color-status-error,    #E45649); }
-.pict-code-editor-wrap .pict-code-editor .tag           { color: var(--theme-color-status-error,    #E45649); }
-.pict-code-editor-wrap .pict-code-editor .attr-name     { color: var(--theme-color-brand-accent,    #986801); }
-.pict-code-editor-wrap .pict-code-editor .attr-value    { color: var(--theme-color-status-success,  #50A14F); }
+/* Syntax token colors — each class binds to a Color.Syntax.* token from
+   pict-provider-theme. Fallback hexes match the One Light palette so apps
+   that don't install the theme provider look the same as before. */
+.pict-code-editor-wrap .pict-code-editor .keyword       { color: var(--theme-color-syntax-keyword,     #A626A4); }
+.pict-code-editor-wrap .pict-code-editor .string        { color: var(--theme-color-syntax-string,      #50A14F); }
+.pict-code-editor-wrap .pict-code-editor .number        { color: var(--theme-color-syntax-number,      #986801); }
+.pict-code-editor-wrap .pict-code-editor .comment       { color: var(--theme-color-syntax-comment,     #A0A1A7); font-style: italic; }
+.pict-code-editor-wrap .pict-code-editor .operator      { color: var(--theme-color-syntax-operator,    #0184BC); }
+.pict-code-editor-wrap .pict-code-editor .punctuation   { color: var(--theme-color-syntax-punctuation, #383A42); }
+.pict-code-editor-wrap .pict-code-editor .function-name { color: var(--theme-color-syntax-function,    #4078F2); }
+.pict-code-editor-wrap .pict-code-editor .property      { color: var(--theme-color-syntax-property,    #E45649); }
+.pict-code-editor-wrap .pict-code-editor .tag           { color: var(--theme-color-syntax-tag,         #E45649); }
+.pict-code-editor-wrap .pict-code-editor .attr-name     { color: var(--theme-color-syntax-attrname,    #986801); }
+.pict-code-editor-wrap .pict-code-editor .attr-value    { color: var(--theme-color-syntax-attrvalue,   #50A14F); }
+.pict-code-editor-wrap .pict-code-editor .builtin       { color: var(--theme-color-syntax-builtin,     #986801); }
+.pict-code-editor-wrap .pict-code-editor .type          { color: var(--theme-color-syntax-type,        #C18401); }
+.pict-code-editor-wrap .pict-code-editor .variable      { color: var(--theme-color-syntax-variable,    #383A42); }
+
+/* highlight.js class aliases — when host apps render code blocks with
+   highlight.js (e.g. markdown previews via CodeJar's hljs integration),
+   the output uses .hljs / .hljs-* classes rather than the bare token
+   classes pict-section-code emits. Mapping them here lets one stylesheet
+   theme both editor surfaces (bare classes) and hljs-rendered surfaces
+   without the host needing a separate per-app github.css. Rules are
+   intentionally unscoped (no .pict-code-editor-wrap parent) so they
+   apply globally wherever hljs paints. */
+.hljs                  { color: var(--theme-color-text-primary,         #383A42); background: transparent; }
+.hljs-keyword,
+.hljs-keyword.hljs-typeof,
+.hljs-selector-tag,
+.hljs-literal          { color: var(--theme-color-syntax-keyword,       #A626A4); }
+.hljs-string,
+.hljs-regexp,
+.hljs-template-tag,
+.hljs-template-variable { color: var(--theme-color-syntax-string,       #50A14F); }
+.hljs-number,
+.hljs-meta             { color: var(--theme-color-syntax-number,        #986801); }
+.hljs-comment,
+.hljs-quote            { color: var(--theme-color-syntax-comment,       #A0A1A7); font-style: italic; }
+.hljs-operator,
+.hljs-link             { color: var(--theme-color-syntax-operator,      #0184BC); }
+.hljs-punctuation      { color: var(--theme-color-syntax-punctuation,   #383A42); }
+.hljs-function .hljs-title,
+.hljs-title.function_,
+.hljs-title.class_     { color: var(--theme-color-syntax-function,      #4078F2); }
+.hljs-variable,
+.hljs-variable.language_,
+.hljs-params           { color: var(--theme-color-syntax-variable,      #383A42); }
+.hljs-type,
+.hljs-class .hljs-title { color: var(--theme-color-syntax-type,         #C18401); }
+.hljs-built_in,
+.hljs-builtin-name     { color: var(--theme-color-syntax-builtin,       #986801); }
+.hljs-attr,
+.hljs-property         { color: var(--theme-color-syntax-property,      #E45649); }
+.hljs-tag,
+.hljs-name             { color: var(--theme-color-syntax-tag,           #E45649); }
+.hljs-attribute        { color: var(--theme-color-syntax-attrname,      #986801); }
+.hljs-symbol           { color: var(--theme-color-syntax-attrvalue,     #50A14F); }
+.hljs-emphasis         { font-style: italic; }
+.hljs-strong           { font-weight: bold; }
+.hljs-deletion         { color: var(--theme-color-status-error,         #B62828); background: rgba(220, 50, 47, 0.08); }
+.hljs-addition         { color: var(--theme-color-status-success,       #2E7A3A); background: rgba(80, 161, 79, 0.10); }
 `
 });
