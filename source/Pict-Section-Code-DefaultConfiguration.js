@@ -79,9 +79,9 @@ module.exports = (
 	   the code; only horizontal padding is stylesheet-owned. */
 	padding: 0;
 	text-align: right;
-	background: var(--theme-color-background-secondary, #F5F5F5);
-	border-right: 1px solid var(--theme-color-border-default, #D0D0D0);
-	color: var(--theme-color-text-muted, #999);
+	background: var(--theme-color-editor-linenumber-background, var(--theme-color-background-secondary, #F5F5F5));
+	border-right: 1px solid var(--theme-color-editor-gutter-border, var(--theme-color-border-default, #D0D0D0));
+	color: var(--theme-color-editor-linenumber-text, var(--theme-color-text-muted, #999));
 	font-size: 13px;
 	/* line-height, padding-top, padding-bottom, and font-family are
 	   intentionally NOT declared here.  PictSectionCode._syncGutterMetrics()
@@ -120,6 +120,11 @@ module.exports = (
 {
 	padding-left: 10px;
 	border-radius: 4px;
+}
+.pict-code-editor-wrap .pict-code-editor::selection,
+.pict-code-editor-wrap .pict-code-editor *::selection
+{
+	background: var(--theme-color-editor-selection-background, var(--theme-color-selection-background, #B3D4FC));
 }
 /* Syntax token colors — each class binds to a Color.Syntax.* token from
    pict-provider-theme. Fallback hexes match the One Light palette so apps
