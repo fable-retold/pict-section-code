@@ -1,7 +1,7 @@
 {
 	"Name": "pict-section-code",
-	"Version": "1.0.4",
+	"Version": "1.0.11",
 	"Description": "Pict code editor section wrapping CodeJar",
-	"GeneratedAt": "2026-04-10T17:25:00.968Z",
-	"GitCommit": "259e765"
+	"GeneratedAt": "2026-05-22T05:44:32.749Z",
+	"GitCommit": "84a2820"
 }
