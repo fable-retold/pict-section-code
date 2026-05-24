@@ -302,6 +302,53 @@ suite
 				);
 				test
 				(
+					'setCode should not propagate CodeJar.updateCode failures (fallback to textContent + highlight)',
+					(fDone) =>
+					{
+						// Simulates the real-world bug: pict-section-code instance
+						// is rendered into a slot that's display:none (e.g. an
+						// inactive tab in a tabbed editor).  CodeJar's internal
+						// selection bookkeeping throws when updateCode runs on a
+						// hidden contenteditable, but the content swap itself
+						// (textContent + re-highlight) is fine.  setCode must
+						// not let the inner throw escape — callers iterate over
+						// every editor and any single failure breaks the rest.
+						let tmpPict = configureTestPict();
+						let tmpView = tmpPict.addView('Pict-View-TestCode-FailGuard', {}, libPictSectionCode);
+
+						// Inject a stand-in editor element and a CodeJar whose
+						// updateCode always throws — exactly what the broken
+						// CodeJar internals do on a hidden parent.
+						let tmpEditorEl =
+						{
+							textContent: 'initial'
+						};
+						let tmpHighlightCalls = 0;
+						tmpView._editorElement = tmpEditorEl;
+						tmpView._highlightFunction = function (pElement)
+						{
+							tmpHighlightCalls++;
+							// Verify the fallback handed us the swapped content.
+							Expect(pElement).to.equal(tmpEditorEl);
+						};
+						tmpView.codeJar =
+						{
+							updateCode: function () { throw new Error('simulated CodeJar selection failure'); }
+						};
+
+						// MUST NOT THROW.
+						let tmpDidThrow = false;
+						try { tmpView.setCode('fallback content'); }
+						catch (pError) { tmpDidThrow = true; }
+
+						Expect(tmpDidThrow).to.equal(false, 'setCode must swallow CodeJar.updateCode failures');
+						Expect(tmpEditorEl.textContent).to.equal('fallback content', 'fallback should set textContent directly');
+						Expect(tmpHighlightCalls).to.equal(1, 'fallback should re-run the highlight function');
+						return fDone();
+					}
+				);
+				test
+				(
 					'setLanguage should update the language',
 					(fDone) =>
 					{

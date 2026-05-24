@@ -488,6 +488,16 @@ class PictSectionCode extends libPictViewClass
 	/**
 	 * Set the code content.
 	 *
+	 * Safe to call whether or not the editor's host element is currently
+	 * visible.  CodeJar's `updateCode()` internally touches the
+	 * selection APIs (to preserve cursor position across the swap), and
+	 * those APIs return null / empty Range when the contenteditable is
+	 * inside a `display:none` ancestor.  In that case CodeJar's internal
+	 * bookkeeping throws — but the actual content swap is the easy
+	 * part: just set the editor element's textContent and re-run the
+	 * highlighter directly.  When the user makes the tab visible later,
+	 * CodeJar picks up the new textContent and cursor handling resumes.
+	 *
 	 * @param {string} pCode - The code to set
 	 */
 	setCode(pCode)
@@ -497,8 +507,42 @@ class PictSectionCode extends libPictViewClass
 			this.log.warn('PICT-Code setCode called before editor initialized.');
 			return;
 		}
-		this.codeJar.updateCode(pCode);
-		this._updateLineNumbers();
+		let tmpUsedFallback = false;
+		try
+		{
+			this.codeJar.updateCode(pCode);
+		}
+		catch (pError)
+		{
+			// Fall back to a direct textContent swap + re-highlight.
+			// This branch typically fires when setCode is called on a
+			// tab that's not currently active (display:none), or on an
+			// editor whose host has been detached from the DOM.
+			tmpUsedFallback = true;
+			try
+			{
+				if (this._editorElement)
+				{
+					this._editorElement.textContent = (typeof pCode === 'string') ? pCode : '';
+					if (typeof this._highlightFunction === 'function')
+					{
+						this._highlightFunction(this._editorElement);
+					}
+				}
+			}
+			catch (pFallbackError)
+			{
+				this.log.warn('PICT-Code setCode failed: ' + pError
+					+ ' (textContent fallback also failed: ' + pFallbackError + ')');
+				return;
+			}
+		}
+		// Line-number gutter sync is best-effort either way; if it
+		// throws (e.g. gutter wasn't built because the editor never
+		// became visible), keep going — line numbers redraw on the
+		// next visible render.
+		try { this._updateLineNumbers(); }
+		catch (pLineNumberError) { /* gutter sync is non-fatal */ }
 	}
 
 	/**
