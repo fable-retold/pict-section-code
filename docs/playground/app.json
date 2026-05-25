@@ -1,0 +1,6 @@
+{
+	"Name": "Code Editor Playground",
+	"Hash": "CodeEditorPlayground",
+	"MainViewportViewIdentifier": "CodeEditor",
+	"AutoRenderMainViewportViewAfterInitialize": true
+}

@@ -1,0 +1,10 @@
+{
+	"Product": "CodeEditorPlayground",
+	"CodeEditorViewConfig":
+	{
+		"CodeDataAddress": "AppData.PlaygroundCode",
+		"Language":        "javascript",
+		"LineNumbers":     true,
+		"DefaultCode":     "// Edit this code and click Run to re-render with syntax highlighting\nconst greeting = 'Hello, world!';\nconsole.log(greeting);\n"
+	}
+}

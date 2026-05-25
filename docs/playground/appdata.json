@@ -1,0 +1,3 @@
+{
+	"PlaygroundCode": "// Edit this code and click Run to re-render with syntax highlighting\nconst greeting = 'Hello, world!';\nconsole.log(greeting);\n"
+}
