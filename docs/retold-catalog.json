@@ -1,7 +1,7 @@
 {
-	"Generated": "2026-05-23T01:49:33.353Z",
+	"Generated": "2026-05-26T18:21:59.296Z",
 	"Mode": "module",
-	"GitHubOrg": "stevenvelozo",
+	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
 	"Module": {
 		"Name": "pict-section-code",
@@ -93,6 +93,7 @@
 			"README.md",
 			"_brand.json",
 			"_cover.md",
+			"_playground.json",
 			"_sidebar.md",
 			"_version.json",
 			"api.md",
@@ -114,6 +115,14 @@
 			"getting-started.md",
 			"highlighting.md",
 			"index.html",
+			"playground/app.json",
+			"playground/appdata.json",
+			"playground/application.js",
+			"playground/pict.json",
+			"playground/runtime/pict-application.min.js",
+			"playground/runtime/pict-section-code.min.js",
+			"playground/runtime/pict-section-modal.min.js",
+			"playground/runtime/pict.min.js",
 			"retold-catalog.json",
 			"retold-keyword-index.json"
 		]
