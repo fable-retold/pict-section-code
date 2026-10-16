@@ -62,21 +62,21 @@ The built-in CSS provides a clean default theme. Override it by providing a `CSS
 
 ### Default Token Colors
 
-The built-in theme uses a light color scheme:
+The built-in theme follows the page's light or dark mode. It switches to its dark palette (One Dark) under `[data-theme="dark"]`, a `.theme-dark` ancestor, or an OS dark preference unless the page sets `data-theme="light"`:
 
-| CSS Class | Color | Used For |
-|-----------|-------|----------|
-| `.keyword` | `#A626A4` (purple) | Language keywords (`const`, `function`, `if`, etc.) |
-| `.string` | `#50A14F` (green) | String literals |
-| `.number` | `#986801` (gold) | Numeric literals |
-| `.comment` | `#A0A1A7` (gray, italic) | Comments |
-| `.operator` | `#0184BC` (teal) | Operators (`=`, `+`, `=>`, etc.) |
-| `.punctuation` | `#383A42` (dark) | Braces, semicolons, commas |
-| `.function-name` | `#4078F2` (blue) | Function names and CSS selectors |
-| `.property` | `#E45649` (red) | Object properties |
-| `.tag` | `#E45649` (red) | HTML tags |
-| `.attr-name` | `#986801` (gold) | HTML attribute names |
-| `.attr-value` | `#50A14F` (green) | HTML attribute values |
+| CSS Class | Light | Dark | Used For |
+|-----------|-------|------|----------|
+| `.keyword` | `#A626A4` (purple) | `#C678DD` | Language keywords (`const`, `function`, `if`, etc.) |
+| `.string` | `#50A14F` (green) | `#98C379` | String literals |
+| `.number` | `#986801` (gold) | `#D19A66` | Numeric literals |
+| `.comment` | `#A0A1A7` (gray, italic) | `#7F848E` | Comments |
+| `.operator` | `#0184BC` (teal) | `#56B6C2` | Operators (`=`, `+`, `=>`, etc.) |
+| `.punctuation` | `#383A42` (dark) | `#ABB2BF` | Braces, semicolons, commas |
+| `.function-name` | `#4078F2` (blue) | `#61AFEF` | Function names and CSS selectors |
+| `.property` | `#E45649` (red) | `#E06C75` | Object properties |
+| `.tag` | `#E45649` (red) | `#E06C75` | HTML tags |
+| `.attr-name` | `#986801` (gold) | `#D19A66` | HTML attribute names |
+| `.attr-value` | `#50A14F` (green) | `#98C379` | HTML attribute values |
 
 ### Default Editor Styles
 
@@ -85,10 +85,12 @@ The editor uses these default styles:
 - **Font:** `SFMono-Regular`, `SF Mono`, `Menlo`, `Consolas`, monospace
 - **Font size:** 14px
 - **Line height:** 1.5
-- **Background:** `#FAFAFA`
-- **Text color:** `#383A42`
-- **Line numbers:** 40px gutter, `#F5F5F5` background, `#999` text
-- **Border:** 1px solid `#D0D0D0` with 4px border-radius
+- **Background:** `#FAFAFA` (dark `#282C34`)
+- **Text color:** `#383A42` (dark `#ABB2BF`)
+- **Line numbers:** 40px gutter, `#F5F5F5` background, `#999` text (dark `#21252B` / `#636D83`)
+- **Border:** 1px solid `#D0D0D0` (dark `#3E4451`) with 4px border-radius
+
+Each color reads a `--theme-color-*` token first, so a pict-provider-theme host wins in either mode. Without one, it falls back to a `--pict-code-*` palette variable (`--pict-code-keyword`, `--pict-code-background`, ...), which you can override to recolor just the code editor.
 
 ## Example Configurations
 
