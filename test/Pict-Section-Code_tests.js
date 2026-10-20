@@ -373,5 +373,73 @@ suite
 				);
 			}
 		);
+
+		suite
+		(
+			'Theming',
+			() =>
+			{
+				const tmpCSS = require('../source/Pict-Section-Code-DefaultConfiguration.js').CSS;
+
+				const declaredIn = (pBlock) => [...pBlock.matchAll(/(--pict-code-[a-z-]+):/g)].map((pMatch) => pMatch[1]);
+				const readByRules = () => [...new Set([...tmpCSS.matchAll(/var\((--pict-code-[a-z-]+)\)/g)].map((pMatch) => pMatch[1]))];
+
+				test
+				(
+					'every palette color the rules read is declared for light and for dark',
+					(fDone) =>
+					{
+						let tmpLight = declaredIn(tmpCSS.split(':root\n{')[1].split('}')[0]);
+						let tmpDark = declaredIn(tmpCSS.split('.theme-dark\n{')[1].split('}')[0]);
+						let tmpRead = readByRules();
+						Expect(tmpRead.length).to.be.greaterThan(0);
+						for (let i = 0; i < tmpRead.length; i++)
+						{
+							Expect(tmpLight, `${tmpRead[i]} has no light value`).to.include(tmpRead[i]);
+							Expect(tmpDark, `${tmpRead[i]} has no dark value`).to.include(tmpRead[i]);
+						}
+						return fDone();
+					}
+				);
+
+				test
+				(
+					'switches to the dark palette on data-theme, the theme-dark class and an OS dark preference',
+					(fDone) =>
+					{
+						Expect(tmpCSS).to.match(/\[data-theme="dark"\],\s*\.theme-dark\s*\{[^}]*--pict-code-background:/);
+						Expect(tmpCSS).to.match(/@media \(prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme="light"\]\)\s*\{[^}]*--pict-code-background:/);
+						return fDone();
+					}
+				);
+
+				test
+				(
+					'keeps the One Light colors as the light palette',
+					(fDone) =>
+					{
+						let tmpLight = tmpCSS.split(':root\n{')[1].split('}')[0];
+						Expect(tmpLight).to.contain('--pict-code-text: #383A42;');
+						Expect(tmpLight).to.contain('--pict-code-background: #FAFAFA;');
+						Expect(tmpLight).to.contain('--pict-code-keyword: #A626A4;');
+						Expect(tmpLight).to.contain('--pict-code-string: #50A14F;');
+						return fDone();
+					}
+				);
+
+				test
+				(
+					'paints every color through a host theme token first, so a host theme still wins',
+					(fDone) =>
+					{
+						let tmpRules = tmpCSS.replace(/(--pict-code-[a-z-]+):[^;]*;/g, '');
+						let tmpUnwrapped = tmpRules.replace(/var\(--theme-color-[a-z-]+,\s*(var\(--theme-color-[a-z-]+,\s*)?var\(--pict-code-[a-z-]+\)\)?\)/g, '');
+						let tmpDirect = [...tmpUnwrapped.matchAll(/var\((--pict-code-[a-z-]+)\)/g)].map((pMatch) => pMatch[1]);
+						Expect(tmpDirect).to.have.members([ '--pict-code-deletion-background', '--pict-code-addition-background' ]);
+						return fDone();
+					}
+				);
+			}
+		);
 	}
 );

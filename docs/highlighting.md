@@ -33,19 +33,19 @@ The CSS highlighter recognizes numbers with units: `px`, `em`, `rem`, `%`, `vh`,
 
 The highlighter produces HTML with these CSS classes:
 
-| Class | Default Color | Usage |
-|-------|---------------|-------|
-| `.keyword` | `#A626A4` purple | Language keywords (`const`, `function`, `SELECT`, etc.) |
-| `.string` | `#50A14F` green | String literals and template literals |
-| `.number` | `#986801` gold | Numeric literals (including CSS units) |
-| `.comment` | `#A0A1A7` gray italic | Line and block comments |
-| `.operator` | `#0184BC` teal | Operators (`=`, `+`, `=>`, `===`, etc.) |
-| `.punctuation` | `#383A42` dark | Braces, brackets, semicolons, commas |
-| `.function-name` | `#4078F2` blue | Function names (JS), selectors (CSS) |
-| `.property` | `#E45649` red | Object properties (JS), CSS properties |
-| `.tag` | `#E45649` red | HTML tag names |
-| `.attr-name` | `#986801` gold | HTML attribute names |
-| `.attr-value` | `#50A14F` green | HTML attribute values |
+| Class | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `.keyword` | `#A626A4` purple | `#C678DD` | Language keywords (`const`, `function`, `SELECT`, etc.) |
+| `.string` | `#50A14F` green | `#98C379` | String literals and template literals |
+| `.number` | `#986801` gold | `#D19A66` | Numeric literals (including CSS units) |
+| `.comment` | `#A0A1A7` gray italic | `#7F848E` | Line and block comments |
+| `.operator` | `#0184BC` teal | `#56B6C2` | Operators (`=`, `+`, `=>`, `===`, etc.) |
+| `.punctuation` | `#383A42` dark | `#ABB2BF` | Braces, brackets, semicolons, commas |
+| `.function-name` | `#4078F2` blue | `#61AFEF` | Function names (JS), selectors (CSS) |
+| `.property` | `#E45649` red | `#E06C75` | Object properties (JS), CSS properties |
+| `.tag` | `#E45649` red | `#E06C75` | HTML tag names |
+| `.attr-name` | `#986801` gold | `#D19A66` | HTML attribute names |
+| `.attr-value` | `#50A14F` green | `#98C379` | HTML attribute values |
 
 ## Custom Highlighter Function
 

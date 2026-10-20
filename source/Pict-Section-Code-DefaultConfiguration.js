@@ -1,3 +1,29 @@
+const _DARK_PALETTE = `--pict-code-text: #ABB2BF;
+	--pict-code-background: #282C34;
+	--pict-code-border: #3E4451;
+	--pict-code-caret: #528BFF;
+	--pict-code-selection: #3E4451;
+	--pict-code-gutter-background: #21252B;
+	--pict-code-gutter-text: #636D83;
+	--pict-code-keyword: #C678DD;
+	--pict-code-string: #98C379;
+	--pict-code-number: #D19A66;
+	--pict-code-comment: #7F848E;
+	--pict-code-operator: #56B6C2;
+	--pict-code-punctuation: #ABB2BF;
+	--pict-code-function: #61AFEF;
+	--pict-code-property: #E06C75;
+	--pict-code-tag: #E06C75;
+	--pict-code-attrname: #D19A66;
+	--pict-code-attrvalue: #98C379;
+	--pict-code-builtin: #E5C07B;
+	--pict-code-type: #E5C07B;
+	--pict-code-variable: #ABB2BF;
+	--pict-code-deletion: #E06C75;
+	--pict-code-deletion-background: rgba(224, 108, 117, 0.15);
+	--pict-code-addition: #98C379;
+	--pict-code-addition-background: rgba(152, 195, 121, 0.15);`;
+
 module.exports = (
 {
 	"RenderOnLoad": true,
@@ -58,15 +84,57 @@ module.exports = (
 	//
 	// Every color/font is wired through pict-provider-theme tokens so apps
 	// using pict-provider-theme get themed code editor automatically.  Each
-	// var() carries its original ATOM-One-Light hex as the fallback so apps
-	// without pict-provider-theme installed look exactly as before.
-	"CSS": `.pict-code-editor-wrap
+	// var() falls back to a --pict-code-* palette color: One Light by default,
+	// One Dark under [data-theme="dark"], .theme-dark, or an OS dark preference
+	// (unless the page sets data-theme="light").  A host token still wins in
+	// either mode.
+	"CSS": `:root
+{
+	--pict-code-text: #383A42;
+	--pict-code-background: #FAFAFA;
+	--pict-code-border: #D0D0D0;
+	--pict-code-caret: #526FFF;
+	--pict-code-selection: #B3D4FC;
+	--pict-code-gutter-background: #F5F5F5;
+	--pict-code-gutter-text: #999;
+	--pict-code-keyword: #A626A4;
+	--pict-code-string: #50A14F;
+	--pict-code-number: #986801;
+	--pict-code-comment: #A0A1A7;
+	--pict-code-operator: #0184BC;
+	--pict-code-punctuation: #383A42;
+	--pict-code-function: #4078F2;
+	--pict-code-property: #E45649;
+	--pict-code-tag: #E45649;
+	--pict-code-attrname: #986801;
+	--pict-code-attrvalue: #50A14F;
+	--pict-code-builtin: #986801;
+	--pict-code-type: #C18401;
+	--pict-code-variable: #383A42;
+	--pict-code-deletion: #B62828;
+	--pict-code-deletion-background: rgba(220, 50, 47, 0.08);
+	--pict-code-addition: #2E7A3A;
+	--pict-code-addition-background: rgba(80, 161, 79, 0.10);
+}
+[data-theme="dark"],
+.theme-dark
+{
+	${_DARK_PALETTE}
+}
+@media (prefers-color-scheme: dark)
+{
+	:root:not([data-theme="light"])
+	{
+		${_DARK_PALETTE}
+	}
+}
+.pict-code-editor-wrap
 {
 	display: flex;
 	font-family: var(--theme-typography-family-mono, 'SFMono-Regular', 'SF Mono', 'Menlo', 'Consolas', 'Liberation Mono', 'Courier New', monospace);
 	font-size: 14px;
 	line-height: 1.5;
-	border: 1px solid var(--theme-color-border-default, #D0D0D0);
+	border: 1px solid var(--theme-color-border-default, var(--pict-code-border));
 	border-radius: 4px;
 	overflow: hidden;
 }
@@ -79,9 +147,9 @@ module.exports = (
 	   the code; only horizontal padding is stylesheet-owned. */
 	padding: 0;
 	text-align: right;
-	background: var(--theme-color-editor-linenumber-background, var(--theme-color-background-secondary, #F5F5F5));
-	border-right: 1px solid var(--theme-color-editor-gutter-border, var(--theme-color-border-default, #D0D0D0));
-	color: var(--theme-color-editor-linenumber-text, var(--theme-color-text-muted, #999));
+	background: var(--theme-color-editor-linenumber-background, var(--theme-color-background-secondary, var(--pict-code-gutter-background)));
+	border-right: 1px solid var(--theme-color-editor-gutter-border, var(--theme-color-border-default, var(--pict-code-border)));
+	color: var(--theme-color-editor-linenumber-text, var(--theme-color-text-muted, var(--pict-code-gutter-text)));
 	font-size: 13px;
 	/* line-height, padding-top, padding-bottom, and font-family are
 	   intentionally NOT declared here.  PictSectionCode._syncGutterMetrics()
@@ -111,9 +179,9 @@ module.exports = (
 	tab-size: 4;
 	white-space: pre;
 	overflow-wrap: normal;
-	color: var(--theme-color-text-primary, #383A42);
-	background: var(--theme-color-background-panel, #FAFAFA);
-	caret-color: var(--theme-color-brand-primary, #526FFF);
+	color: var(--theme-color-text-primary, var(--pict-code-text));
+	background: var(--theme-color-background-panel, var(--pict-code-background));
+	caret-color: var(--theme-color-brand-primary, var(--pict-code-caret));
 	border-radius: 0 4px 4px 0;
 }
 .pict-code-editor-wrap .pict-code-editor.pict-code-no-line-numbers
@@ -124,25 +192,24 @@ module.exports = (
 .pict-code-editor-wrap .pict-code-editor::selection,
 .pict-code-editor-wrap .pict-code-editor *::selection
 {
-	background: var(--theme-color-editor-selection-background, var(--theme-color-selection-background, #B3D4FC));
+	background: var(--theme-color-editor-selection-background, var(--theme-color-selection-background, var(--pict-code-selection)));
 }
 /* Syntax token colors — each class binds to a Color.Syntax.* token from
-   pict-provider-theme. Fallback hexes match the One Light palette so apps
-   that don't install the theme provider look the same as before. */
-.pict-code-editor-wrap .pict-code-editor .keyword       { color: var(--theme-color-syntax-keyword,     #A626A4); }
-.pict-code-editor-wrap .pict-code-editor .string        { color: var(--theme-color-syntax-string,      #50A14F); }
-.pict-code-editor-wrap .pict-code-editor .number        { color: var(--theme-color-syntax-number,      #986801); }
-.pict-code-editor-wrap .pict-code-editor .comment       { color: var(--theme-color-syntax-comment,     #A0A1A7); font-style: italic; }
-.pict-code-editor-wrap .pict-code-editor .operator      { color: var(--theme-color-syntax-operator,    #0184BC); }
-.pict-code-editor-wrap .pict-code-editor .punctuation   { color: var(--theme-color-syntax-punctuation, #383A42); }
-.pict-code-editor-wrap .pict-code-editor .function-name { color: var(--theme-color-syntax-function,    #4078F2); }
-.pict-code-editor-wrap .pict-code-editor .property      { color: var(--theme-color-syntax-property,    #E45649); }
-.pict-code-editor-wrap .pict-code-editor .tag           { color: var(--theme-color-syntax-tag,         #E45649); }
-.pict-code-editor-wrap .pict-code-editor .attr-name     { color: var(--theme-color-syntax-attrname,    #986801); }
-.pict-code-editor-wrap .pict-code-editor .attr-value    { color: var(--theme-color-syntax-attrvalue,   #50A14F); }
-.pict-code-editor-wrap .pict-code-editor .builtin       { color: var(--theme-color-syntax-builtin,     #986801); }
-.pict-code-editor-wrap .pict-code-editor .type          { color: var(--theme-color-syntax-type,        #C18401); }
-.pict-code-editor-wrap .pict-code-editor .variable      { color: var(--theme-color-syntax-variable,    #383A42); }
+   pict-provider-theme, falling back to the --pict-code-* palette above. */
+.pict-code-editor-wrap .pict-code-editor .keyword       { color: var(--theme-color-syntax-keyword,     var(--pict-code-keyword)); }
+.pict-code-editor-wrap .pict-code-editor .string        { color: var(--theme-color-syntax-string,      var(--pict-code-string)); }
+.pict-code-editor-wrap .pict-code-editor .number        { color: var(--theme-color-syntax-number,      var(--pict-code-number)); }
+.pict-code-editor-wrap .pict-code-editor .comment       { color: var(--theme-color-syntax-comment,     var(--pict-code-comment)); font-style: italic; }
+.pict-code-editor-wrap .pict-code-editor .operator      { color: var(--theme-color-syntax-operator,    var(--pict-code-operator)); }
+.pict-code-editor-wrap .pict-code-editor .punctuation   { color: var(--theme-color-syntax-punctuation, var(--pict-code-punctuation)); }
+.pict-code-editor-wrap .pict-code-editor .function-name { color: var(--theme-color-syntax-function,    var(--pict-code-function)); }
+.pict-code-editor-wrap .pict-code-editor .property      { color: var(--theme-color-syntax-property,    var(--pict-code-property)); }
+.pict-code-editor-wrap .pict-code-editor .tag           { color: var(--theme-color-syntax-tag,         var(--pict-code-tag)); }
+.pict-code-editor-wrap .pict-code-editor .attr-name     { color: var(--theme-color-syntax-attrname,    var(--pict-code-attrname)); }
+.pict-code-editor-wrap .pict-code-editor .attr-value    { color: var(--theme-color-syntax-attrvalue,   var(--pict-code-attrvalue)); }
+.pict-code-editor-wrap .pict-code-editor .builtin       { color: var(--theme-color-syntax-builtin,     var(--pict-code-builtin)); }
+.pict-code-editor-wrap .pict-code-editor .type          { color: var(--theme-color-syntax-type,        var(--pict-code-type)); }
+.pict-code-editor-wrap .pict-code-editor .variable      { color: var(--theme-color-syntax-variable,    var(--pict-code-variable)); }
 
 /* highlight.js class aliases — when host apps render code blocks with
    highlight.js (e.g. markdown previews via CodeJar's hljs integration),
@@ -152,41 +219,41 @@ module.exports = (
    without the host needing a separate per-app github.css. Rules are
    intentionally unscoped (no .pict-code-editor-wrap parent) so they
    apply globally wherever hljs paints. */
-.hljs                  { color: var(--theme-color-text-primary,         #383A42); background: transparent; }
+.hljs                  { color: var(--theme-color-text-primary,         var(--pict-code-text)); background: transparent; }
 .hljs-keyword,
 .hljs-keyword.hljs-typeof,
 .hljs-selector-tag,
-.hljs-literal          { color: var(--theme-color-syntax-keyword,       #A626A4); }
+.hljs-literal          { color: var(--theme-color-syntax-keyword,       var(--pict-code-keyword)); }
 .hljs-string,
 .hljs-regexp,
 .hljs-template-tag,
-.hljs-template-variable { color: var(--theme-color-syntax-string,       #50A14F); }
+.hljs-template-variable { color: var(--theme-color-syntax-string,       var(--pict-code-string)); }
 .hljs-number,
-.hljs-meta             { color: var(--theme-color-syntax-number,        #986801); }
+.hljs-meta             { color: var(--theme-color-syntax-number,        var(--pict-code-number)); }
 .hljs-comment,
-.hljs-quote            { color: var(--theme-color-syntax-comment,       #A0A1A7); font-style: italic; }
+.hljs-quote            { color: var(--theme-color-syntax-comment,       var(--pict-code-comment)); font-style: italic; }
 .hljs-operator,
-.hljs-link             { color: var(--theme-color-syntax-operator,      #0184BC); }
-.hljs-punctuation      { color: var(--theme-color-syntax-punctuation,   #383A42); }
+.hljs-link             { color: var(--theme-color-syntax-operator,      var(--pict-code-operator)); }
+.hljs-punctuation      { color: var(--theme-color-syntax-punctuation,   var(--pict-code-punctuation)); }
 .hljs-function .hljs-title,
 .hljs-title.function_,
-.hljs-title.class_     { color: var(--theme-color-syntax-function,      #4078F2); }
+.hljs-title.class_     { color: var(--theme-color-syntax-function,      var(--pict-code-function)); }
 .hljs-variable,
 .hljs-variable.language_,
-.hljs-params           { color: var(--theme-color-syntax-variable,      #383A42); }
+.hljs-params           { color: var(--theme-color-syntax-variable,      var(--pict-code-variable)); }
 .hljs-type,
-.hljs-class .hljs-title { color: var(--theme-color-syntax-type,         #C18401); }
+.hljs-class .hljs-title { color: var(--theme-color-syntax-type,         var(--pict-code-type)); }
 .hljs-built_in,
-.hljs-builtin-name     { color: var(--theme-color-syntax-builtin,       #986801); }
+.hljs-builtin-name     { color: var(--theme-color-syntax-builtin,       var(--pict-code-builtin)); }
 .hljs-attr,
-.hljs-property         { color: var(--theme-color-syntax-property,      #E45649); }
+.hljs-property         { color: var(--theme-color-syntax-property,      var(--pict-code-property)); }
 .hljs-tag,
-.hljs-name             { color: var(--theme-color-syntax-tag,           #E45649); }
-.hljs-attribute        { color: var(--theme-color-syntax-attrname,      #986801); }
-.hljs-symbol           { color: var(--theme-color-syntax-attrvalue,     #50A14F); }
+.hljs-name             { color: var(--theme-color-syntax-tag,           var(--pict-code-tag)); }
+.hljs-attribute        { color: var(--theme-color-syntax-attrname,      var(--pict-code-attrname)); }
+.hljs-symbol           { color: var(--theme-color-syntax-attrvalue,     var(--pict-code-attrvalue)); }
 .hljs-emphasis         { font-style: italic; }
 .hljs-strong           { font-weight: bold; }
-.hljs-deletion         { color: var(--theme-color-status-error,         #B62828); background: rgba(220, 50, 47, 0.08); }
-.hljs-addition         { color: var(--theme-color-status-success,       #2E7A3A); background: rgba(80, 161, 79, 0.10); }
+.hljs-deletion         { color: var(--theme-color-status-error,         var(--pict-code-deletion)); background: var(--pict-code-deletion-background); }
+.hljs-addition         { color: var(--theme-color-status-success,       var(--pict-code-addition)); background: var(--pict-code-addition-background); }
 `
 });
